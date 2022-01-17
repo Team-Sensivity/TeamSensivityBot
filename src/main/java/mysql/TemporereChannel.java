@@ -156,19 +156,15 @@ public class TemporereChannel {
     }
 
     public static void saveChat(String author, String nachricht, String user, int number , String chatid){
-        if(chatidExist(chatid)){
+        try {
+            Connection con = Connect.getConnection();
 
-        }else {
-            try {
-                Connection con = Connect.getConnection();
+            PreparedStatement posted = con.prepareStatement("INSERT INTO ChannelSave (author, userid, text, nummer, channelid) VALUES ('"+ author +"', '"+ user +"', '"+ nachricht +"', '"+ number +"', '"+ chatid +"')");
 
-                PreparedStatement posted = con.prepareStatement("INSERT INTO ChannelSave (author, userid, text, nummer, channelid) VALUES ('"+ author +"', '"+ user +"', '"+ nachricht +"', '"+ number +"', '"+ chatid +"')");
-
-                posted.executeUpdate();
-                con.close();
-            } catch (SQLException e ) {
-                e.printStackTrace();
-            }
+            posted.executeUpdate();
+            con.close();
+        } catch (SQLException e ) {
+            e.printStackTrace();
         }
     }
 

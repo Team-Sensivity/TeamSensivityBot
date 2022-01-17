@@ -1,13 +1,16 @@
 package commands.channel;
 
+import com.mysql.cj.Messages;
 import commands.types.ServerCommand;
 import mysql.TemporereChannel;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.utils.MiscUtil;
 
 import java.awt.*;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.util.List;
 
 public class Save implements ServerCommand {
     @Override
@@ -16,23 +19,27 @@ public class Save implements ServerCommand {
 
             int nummer = TemporereChannel.getChatNummer(m.getId()) + 1;
 
-            channel.getHistory().retrievePast(100).map(messages -> messages.get(1)).queue(message1 -> {
-                    TemporereChannel.saveChat(message1.getAuthor().getId(), message1.getContentDisplay(), m.getId(), nummer, channel.getId());
-            });
+            MessageHistory history = MessageHistory.getHistoryFromBeginning(channel).complete();
+
+            List<Message> mess = history.getRetrievedHistory();
+
+            if(TemporereChannel.chatidExist(channel.getId())) {
+                for (Message me : mess) {
+                    TemporereChannel.saveChat(me.getAuthor().getId(), me.getContentDisplay(), m.getId(), nummer, channel.getId());
+                }
+            }
 
             EmbedBuilder builder = new EmbedBuilder();
             builder.setTitle("**Erfolgreich gespeichert!**");
             builder.setDescription("Du hast erfolgreich den Chat gespeichert... Mit /load <nummer> kannst du ihn wieder aufrufen.");
             builder.setAuthor("Team Sensivity");
-            builder.setColor(Color.RED);
-            builder.setThumbnail("");
+            builder.setColor(0x6DE194);
         }else {
             EmbedBuilder builder = new EmbedBuilder();
             builder.setTitle("**Fehler bei der Benutzung des Commands**");
             builder.setDescription("Der Command kann nur in Temporären TextChanneln benutzt werden");
             builder.setAuthor("Team Sensivity");
             builder.setColor(Color.RED);
-            builder.setThumbnail("");
         }
     }
 }

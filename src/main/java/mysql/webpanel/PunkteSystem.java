@@ -126,18 +126,51 @@ public class PunkteSystem {
 
             LocalDateTime d2 = LocalDateTime.parse(start_date, sdf);
 
-            System.out.println(d2);
-            System.out.println(d3);
-
             long difference_In_Minutes = Duration.between(d2, d3).toMinutes();
-            System.out.println(difference_In_Minutes);
+
+            int stunde = d2.getHour();
+
             if(difference_In_Minutes < 0){
                 return 0;
             }else {
-                String day = getDay(d1);
-                upploadTime(day, difference_In_Minutes, id);
-                return difference_In_Minutes;
+                if(difference_In_Minutes / 60 / 24 > 7){
+                    String day = getDay(d1);
+                    upploadTime(day, 24 - stunde, id);
+                    return difference_In_Minutes;
+                }else if(difference_In_Minutes / 60 > 24) {
+                    String day = getDay(d1);
+                    upploadTime(day, (24 - stunde) * 60, id);
+
+                    day = getNachfolger(day);
+                    upploadTime(day, (difference_In_Minutes / 60 - stunde) * 60, id);
+                    return difference_In_Minutes;
+                }else {
+                    String day = getDay(d1);
+                    upploadTime(day, difference_In_Minutes, id);
+                    return difference_In_Minutes;
+                }
             }
+    }
+
+    public static String getNachfolger(String day){
+        switch (day){
+            case "sa":
+                return "so";
+            case "so":
+                return "mo";
+            case "mo":
+                return "di";
+            case "di":
+                return "mi";
+            case "mi":
+                return "do";
+            case "do":
+                return "fr";
+            case "fr":
+                return "sa";
+            default:
+                return "Incorrect argument";
+        }
     }
 
     static void upploadTime(String day, long time, String id){
