@@ -23,23 +23,27 @@ public class Save implements ServerCommand {
 
             List<Message> mess = history.getRetrievedHistory();
 
-            if(TemporereChannel.chatidExist(channel.getId())) {
                 for (Message me : mess) {
-                    TemporereChannel.saveChat(me.getAuthor().getId(), me.getContentDisplay(), m.getId(), nummer, channel.getId());
+                    if(!TemporereChannel.textExist(me.getId())) {
+                        TemporereChannel.saveChat(me.getAuthor().getId(), me.getContentDisplay(), m.getId(), nummer, me.getId());
+                    }
                 }
-            }
 
             EmbedBuilder builder = new EmbedBuilder();
             builder.setTitle("**Erfolgreich gespeichert!**");
             builder.setDescription("Du hast erfolgreich den Chat gespeichert... Mit /load <nummer> kannst du ihn wieder aufrufen.");
             builder.setAuthor("Team Sensivity");
             builder.setColor(0x6DE194);
+
+            channel.sendMessageEmbeds(builder.build()).queue();
         }else {
             EmbedBuilder builder = new EmbedBuilder();
             builder.setTitle("**Fehler bei der Benutzung des Commands**");
             builder.setDescription("Der Command kann nur in Temporären TextChanneln benutzt werden");
             builder.setAuthor("Team Sensivity");
             builder.setColor(Color.RED);
+
+            channel.sendMessageEmbeds(builder.build()).queue();
         }
     }
 }

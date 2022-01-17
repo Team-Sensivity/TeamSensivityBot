@@ -48,7 +48,7 @@ public class Start {
 
         INSTANCE = this;
         status = false;
-        api = JDABuilder.create("", GatewayIntent.getIntents(GatewayIntent.ALL_INTENTS) ).build();
+        api = JDABuilder.create("OTE3MDY5ODUxMTkxODE2MjYy.YazV2g.xP-yMcbjaSEnIUg3TYyUbEja2Hs", GatewayIntent.getIntents(GatewayIntent.ALL_INTENTS) ).build();
         api.getPresence().setStatus(OnlineStatus.OFFLINE);
         this.cmdMan = new CommandManager();
 

@@ -155,17 +155,40 @@ public class TemporereChannel {
         return exist;
     }
 
-    public static void saveChat(String author, String nachricht, String user, int number , String chatid){
+    public static void saveChat(String author, String nachricht, String user, int number , String MessId){
         try {
             Connection con = Connect.getConnection();
 
-            PreparedStatement posted = con.prepareStatement("INSERT INTO ChannelSave (author, userid, text, nummer, channelid) VALUES ('"+ author +"', '"+ user +"', '"+ nachricht +"', '"+ number +"', '"+ chatid +"')");
+            PreparedStatement posted = con.prepareStatement("INSERT INTO ChannelSave (author, userid, text, nummer, textid) VALUES ('"+ author +"', '"+ user +"', '"+ nachricht +"', '"+ number +"', '" + MessId + "')");
 
             posted.executeUpdate();
             con.close();
         } catch (SQLException e ) {
             e.printStackTrace();
         }
+    }
+
+    public static boolean textExist(String id){
+        boolean exist = false;
+
+        try {
+            Connection con = Connect.getConnection();
+            String sql = "SELECT * FROM ChannelSave";
+            Statement stmt  = con.createStatement();
+            ResultSet rs    = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                if(id.equals(rs.getString("textid"))){
+                    exist = true;
+                }
+            }
+
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return exist;
     }
 
     public static int getChatNummer(String user){
