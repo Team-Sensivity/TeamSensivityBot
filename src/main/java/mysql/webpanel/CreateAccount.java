@@ -10,11 +10,23 @@ import java.util.List;
 
 public class CreateAccount {
 
-    public static String create(String username, String id, String url, String role){
+    public static String create(String username, String id, String url, String role, String banner){
+
+            username = username.replace("'", "");
+            username = username.replace("<", "");
+            username = username.replace(">", "");
+            username = username.replace("\"", "");
+            username = username.replace(";", "");
+            role = role.replace("'", "");
+            role = role.replace("<", "");
+            role = role.replace(">", "");
+            role = role.replace("\"", "");
+            role = role.replace("'","");
+
         try {
             Connection con = Connect.getConnection();
 
-            PreparedStatement posted = con.prepareStatement("INSERT INTO users (Username, ID, url, rolle) VALUES ('"+ username +"', '"+ id +"', '" + url + "', '" + role + "')");
+            PreparedStatement posted = con.prepareStatement("INSERT INTO users (Username, ID, url, rolle, banner) VALUES ('"+ username +"', '"+ id +"', '" + url + "', '" + role + "', '" + banner + "')");
 
             posted.executeUpdate();
             con.close();
@@ -78,5 +90,19 @@ public class CreateAccount {
         }
 
         return "Team Sensivity";
+    }
+
+    public static void delete(String id) {
+        try {
+            Connection con = Connect.getConnection();
+
+            PreparedStatement posted = con.prepareStatement("DELETE FROM users WHERE ID = '" + id +"'");
+
+            posted.executeUpdate();
+            con.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

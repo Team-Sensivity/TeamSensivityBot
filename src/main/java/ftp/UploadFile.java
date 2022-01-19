@@ -2,6 +2,7 @@ package ftp;
 
 import commands.webpanel.Token;
 import funktionen.GenerateToken;
+import geheim.Passwort;
 import mysql.games.KartenUpload;
 import mysql.webpanel.TokenErstellen;
 import org.apache.commons.net.ftp.FTP;
@@ -20,7 +21,7 @@ public class UploadFile {
         try {
 
             ftpClient.connect("45.88.108.231", 21);
-            ftpClient.login("u8146-785", "keksi123");
+            ftpClient.login("u8146-785", Passwort.getDatabasePassword());
             ftpClient.enterLocalPassiveMode();
 
             ftpClient.setFileType(FTP.BINARY_FILE_TYPE);

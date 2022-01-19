@@ -3,6 +3,7 @@ package listener.punktesystem;
 import main.Start;
 import mysql.BotInfos;
 import mysql.TemporereChannel;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceMoveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 

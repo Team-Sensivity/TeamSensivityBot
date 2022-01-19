@@ -1,15 +1,11 @@
 package commands.channel;
 
-import com.mysql.cj.Messages;
 import commands.types.ServerCommand;
 import mysql.TemporereChannel;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.*;
-import net.dv8tion.jda.api.utils.MiscUtil;
 
 import java.awt.*;
-import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class Save implements ServerCommand {
@@ -31,7 +27,7 @@ public class Save implements ServerCommand {
 
             EmbedBuilder builder = new EmbedBuilder();
             builder.setTitle("**Erfolgreich gespeichert!**");
-            builder.setDescription("Du hast erfolgreich den Chat gespeichert... Mit /load <nummer> kannst du ihn wieder aufrufen.");
+            builder.setDescription("Du hast erfolgreich den Chat gespeichert... Mit &load "+ nummer +" kannst du ihn wieder aufrufen.");
             builder.setAuthor("Team Sensivity");
             builder.setColor(0x6DE194);
 

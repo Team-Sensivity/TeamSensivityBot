@@ -5,6 +5,7 @@ import mysql.BotInfos;
 import mysql.TemporereChannel;
 import mysql.webpanel.PunkteSystem;
 import mysql.webpanel.TokenErstellen;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceJoinEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 

@@ -14,6 +14,7 @@ import commands.punktesystem.CreateLevel;
 import commands.punktesystem.GetPoints;
 import commands.types.PrivateCommand;
 import commands.types.ServerCommand;
+import commands.webpanel.UpdateUsers;
 import net.dv8tion.jda.api.entities.*;
 
 import java.util.concurrent.ConcurrentHashMap;
@@ -38,6 +39,7 @@ public class CommandManager {
         this.commandsp.put("exit", new Exit());
         this.commandsp.put("start", new Start());
         this.commands.put("save", new Save());
+        this.commands.put("update", new UpdateUsers());
     }
 
     public boolean perform(String command, Member m, TextChannel channel, Message message){

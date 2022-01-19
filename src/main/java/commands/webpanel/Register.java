@@ -22,7 +22,9 @@ public class Register implements PrivateCommand {
 
             channel.sendMessageEmbeds(builder.build()).queue();
         }else {
-            CreateAccount.create(m.getName(), m.getId(), m.getAvatarUrl(), CreateAccount.getRole(m.getId()));
+            User.Profile p = m.retrieveProfile().complete();
+
+            CreateAccount.create(m.getName(), m.getId(), m.getEffectiveAvatarUrl(), CreateAccount.getRole(m.getId()), p.getBannerUrl());
 
             EmbedBuilder builder = new EmbedBuilder();
             builder.setThumbnail("https://sensivity.michel929.de/webpanel/assets/images/logo.png");

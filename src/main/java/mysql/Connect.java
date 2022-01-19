@@ -1,5 +1,6 @@
 package mysql;
 
+import geheim.Passwort;
 import main.Start;
 
 import java.sql.Connection;
@@ -10,7 +11,7 @@ public class Connect {
 
     static String url = "jdbc:mysql://45.88.108.231:3306/u8146-785_discord";
     static String user = "michel_929";
-    static String pass = "keksi123";
+    static String pass = Passwort.getDatabasePassword();
 
     public static Connection getConnection(){
         try {

@@ -23,7 +23,27 @@ public class Infos {
         }
     }
 
+    public static void updateBanner(String url, String id) {
+        try {
+            Connection con = Connect.getConnection();
+
+            PreparedStatement posted = con.prepareStatement("UPDATE users SET banner = '" + url + "' WHERE ID = '" + id + "'");
+
+            posted.executeUpdate();
+            con.close();
+
+        } catch (
+                SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void updateName(String name, String id) {
+        name = name.replace("'", "");
+        name = name.replace(";", "");
+        name = name.replace(">", "");
+        name = name.replace("<", "");
+        name = name.replace("\"", "");
         try {
             Connection con = Connect.getConnection();
 
@@ -42,6 +62,12 @@ public class Infos {
         String id = m.getId();
 
         String rolle = CreateAccount.getRole(m);
+
+        rolle = rolle.replace("'", "");
+        rolle = rolle.replace("<", "");
+        rolle = rolle.replace(">", "");
+        rolle = rolle.replace("\"", "");
+        rolle = rolle.replace("'","");
 
         try {
             Connection con = Connect.getConnection();
@@ -79,5 +105,17 @@ public class Infos {
         }
 
         return role;
+    }
+
+    public static void updateAll(String avatar, String username, String banner, String userid){
+        username.replace("'", "");
+        username.replace("<", "");
+        username.replace(">", "");
+        username.replace("\"", "");
+        username.replace(";", "");
+
+        Infos.updateAvatar(avatar, userid);
+        Infos.updateName(username, userid);
+        Infos.updateBanner(banner, userid);
     }
 }

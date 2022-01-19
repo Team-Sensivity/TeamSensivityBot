@@ -9,6 +9,7 @@ import listener.punktesystem.SprachchatMove;
 import listener.rollen.*;
 import listener.webpanel.AvatarUpdate;
 import listener.webpanel.NameUpdate;
+import listener.webpanel.PlayerLeave;
 import mysql.BotInfos;
 import mysql.games.KartenUpload;
 import mysql.games.Lobby;
@@ -78,7 +79,7 @@ public class Start {
                             setStatus(false);
                             System.out.println("Bot ist offline!");
                         }
-                    }else if (line.equalsIgnoreCase("start")){
+                    }else if (line.equalsIgnoreCase("run")){
                         if (api != null){
                             api.getPresence().setStatus(OnlineStatus.ONLINE);
                             setStatus(true);
@@ -114,6 +115,8 @@ public class Start {
         builder.addEventListener(new SprachchatMove());
         builder.addEventListener(new ChannelRemove());
         builder.addEventListener(new PlayerJoin());
+        builder.addEventListener(new PlayerLeave());
+        builder.addEventListener(new Timeout());
     }
 
     public static void checkChannel(){
