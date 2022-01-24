@@ -1,6 +1,7 @@
 package main;
 
 import funktionen.ResetOnlineTime;
+import geheim.Passwort;
 import listener.*;
 import listener.punktesystem.ChannelRemove;
 import listener.punktesystem.SprachchatConnect;
@@ -49,7 +50,7 @@ public class Start {
 
         INSTANCE = this;
         status = false;
-        api = JDABuilder.create("OTE3MDY5ODUxMTkxODE2MjYy.YazV2g.xP-yMcbjaSEnIUg3TYyUbEja2Hs", GatewayIntent.getIntents(GatewayIntent.ALL_INTENTS) ).build();
+        api = JDABuilder.create(Passwort.getToken(), GatewayIntent.getIntents(GatewayIntent.ALL_INTENTS) ).build();
         api.getPresence().setStatus(OnlineStatus.OFFLINE);
         this.cmdMan = new CommandManager();
 
