@@ -78,7 +78,7 @@ public class CreateAccount {
         try {
             Connection con = Connect.getConnection();
 
-            PreparedStatement posted = con.prepareStatement("DELETE FROM rollen WHERE ID = '" + id +"'");
+            PreparedStatement posted = con.prepareStatement("DELETE FROM rollen WHERE username = '" + id +"'");
 
             posted.executeUpdate();
             con.close();

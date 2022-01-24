@@ -24,6 +24,27 @@ public class BotInfos {
         return exist;
     }
 
+    public static String getMemeChannel(){
+        String exist = "";
+
+        try {
+            Connection con = Connect.getConnection();
+            String sql = "SELECT * FROM botInfos";
+            Statement stmt  = con.createStatement();
+            ResultSet rs    = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                exist = rs.getString("memeChannel");
+            }
+
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return exist;
+    }
+
     public static String getStandardRole(){
         String exist = "";
 

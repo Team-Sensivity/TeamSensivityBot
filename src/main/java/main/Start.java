@@ -118,6 +118,8 @@ public class Start {
         builder.addEventListener(new PlayerJoin());
         builder.addEventListener(new PlayerLeave());
         builder.addEventListener(new Timeout());
+        builder.addEventListener(new ReactionRemoveListener());
+        builder.addEventListener(new MessageRemove());
     }
 
     public static void checkChannel(){

@@ -2,6 +2,8 @@ package listener;
 
 import games.MauMau;
 import main.Start;
+import mysql.BotInfos;
+import mysql.Memes;
 import mysql.games.KartenUpload;
 import mysql.games.Lobby;
 import mysql.webpanel.CreateAccount;
@@ -85,6 +87,20 @@ public class ReactionAddListener extends ListenerAdapter {
                                     Reaction.delete(event.getUserId());
                                     MauMau.reactionA(event.getChannel().getId(), Lobby.getMessage(event.getUserId()), event.getUserId(), aktiv, Lobby.getLobbyId(event.getUserId()));
                                 });
+                            }
+                        }
+                    }
+                }
+            }else if (event.getChannelType() == ChannelType.TEXT){
+                if(!event.getUser().isBot()) {
+                    if (event.getChannel().getId().equals(BotInfos.getMemeChannel())) {
+                        if (Memes.isMeme(event.getMessageId())) {
+                            Emoji Emotes = Emoji.fromUnicode(event.getReactionEmote().getEmoji());
+
+                            if(Emotes.equals(Emoji.fromUnicode("U+1F44D"))){
+                                Memes.like(event.getMessageId());
+                            }else if(Emotes.equals(Emoji.fromUnicode("U+1F44E"))){
+                                Memes.dislike(event.getMessageId());
                             }
                         }
                     }

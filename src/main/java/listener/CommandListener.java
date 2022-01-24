@@ -1,13 +1,18 @@
 package listener;
 
 import main.Start;
+import mysql.BotInfos;
+import mysql.Memes;
 import mysql.webpanel.PunkteSystem;
 import mysql.webpanel.TokenErstellen;
 import net.dv8tion.jda.api.entities.ChannelType;
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.PrivateChannel;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+
+import java.util.List;
 
 public class CommandListener extends ListenerAdapter {
 
@@ -32,6 +37,16 @@ public class CommandListener extends ListenerAdapter {
                         if (!Start.INSTANCE.getCmdMan().perform(args[0], event.getMember(), channel, event.getMessage())) {
                             channel.sendMessage("Unbekannter Command").queue();
                         }
+                    }
+                }
+
+                if(channel.getId().equals(BotInfos.getMemeChannel())){
+                    List<Message.Attachment> attachments = event.getMessage().getAttachments();
+                    if(attachments.size() > 0){
+                        channel.addReactionById(event.getMessageId(),"U+1F44D").queue();
+                        channel.addReactionById(event.getMessageId(), "U+1F44E").queue();
+
+                        Memes.uploadMeme(event.getMessage());
                     }
                 }
             } else if (event.isFromType(ChannelType.PRIVATE)) {
