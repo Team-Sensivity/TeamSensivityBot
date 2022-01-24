@@ -114,8 +114,18 @@ public class Infos {
         username.replace("\"", "");
         username.replace(";", "");
 
-        Infos.updateAvatar(avatar, userid);
-        Infos.updateName(username, userid);
-        Infos.updateBanner(banner, userid);
+
+        try {
+            Connection con = Connect.getConnection();
+
+            PreparedStatement posted = con.prepareStatement("UPDATE users SET url = '" + avatar + "', username = '"+ username +"', banner = '" + banner +"' WHERE ID = '" + userid + "'");
+
+            posted.executeUpdate();
+            con.close();
+
+        } catch (
+                SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

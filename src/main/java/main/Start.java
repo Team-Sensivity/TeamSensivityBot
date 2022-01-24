@@ -108,10 +108,10 @@ public class Start {
         builder.addEventListener(new RollePriority());
         builder.addEventListener(new AvatarUpdate());
         builder.addEventListener(new NameUpdate());
-        builder.addEventListener(new RollenAdd());
+        builder.addEventListener(new RollenAddMember());
         builder.addEventListener(new SprachchatConnect());
         builder.addEventListener(new SprachchatDisconnect());
-        builder.addEventListener(new RollenNo());
+        builder.addEventListener(new RollenRemoveFromMember());
         builder.addEventListener(new SprachchatMove());
         builder.addEventListener(new ChannelRemove());
         builder.addEventListener(new PlayerJoin());

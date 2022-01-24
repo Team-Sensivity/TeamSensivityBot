@@ -1,10 +1,8 @@
 package ftp;
 
-import commands.webpanel.Token;
 import funktionen.GenerateToken;
 import geheim.Passwort;
 import mysql.games.KartenUpload;
-import mysql.webpanel.TokenErstellen;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 

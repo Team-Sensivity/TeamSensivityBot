@@ -7,8 +7,10 @@ import mysql.webpanel.Infos;
 import mysql.webpanel.TokenErstellen;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.*;
+import threads.UserUpdateThread;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UpdateUsers implements ServerCommand {
@@ -19,18 +21,36 @@ public class UpdateUsers implements ServerCommand {
             Guild g = Start.INSTANCE.getApi().getGuilds().get(0);
             List<Member> members = g.getMembers();
 
-            for (Member member : members) {
-                User.Profile p = member.getUser().retrieveProfile().complete();
+            ArrayList<Member> [] memberLists = new ArrayList[4];
 
-                if (TokenErstellen.isRegister(member.getId())) {
-                    Infos.updateAll(member.getEffectiveAvatarUrl(), member.getEffectiveName(), p.getBannerUrl(), member.getId());
-                    Infos.updateRole(member);
-                } else {
-                    CreateAccount.create(member.getEffectiveName(), member.getId(), member.getAvatarUrl(), CreateAccount.getRole(member.getId()), p.getBannerUrl());
-                }
+            for (int i=0;i<memberLists.length;i++){
+                memberLists[i] = new ArrayList<>();
             }
 
-            channel.sendMessage("https://tenor.com/view/never-update-chicken-dancing-spinning-gif-16266040").queue();
+            if(members.size() >= 4){
+                int max = members.size() / 4;
+                for(int i=0; i < 4; i++){
+                    if (i < 3){
+                        for (int j = i * max; j < (i +1) * max; j++){
+                            memberLists[i].add(members.get(j));
+                        }
+                    }else {
+                        for (int j = i * max; j < members.size(); j++){
+                            memberLists[i].add(members.get(j));
+                        }
+                    }
+                }
+
+                Thread t1 = new Thread(new UserUpdateThread(memberLists[0]));
+                Thread t2 = new Thread(new UserUpdateThread(memberLists[1]));
+                Thread t3 = new Thread(new UserUpdateThread(memberLists[2]));
+                Thread t4 = new Thread(new UserUpdateThread(memberLists[3]));
+
+                t1.start();
+                t2.start();
+                t3.start();
+                t4.start();
+            }
         }else {
             EmbedBuilder builder = new EmbedBuilder();
             builder.setAuthor("Team Sensivity");
