@@ -54,7 +54,7 @@ public class Start {
 
         INSTANCE = this;
         status = false;
-        api = JDABuilder.create(Passwort.getToken(), GatewayIntent.getIntents(GatewayIntent.ALL_INTENTS) ).build();
+        api = JDABuilder.create(Passwort.getToken(), GatewayIntent.getIntents(GatewayIntent.ALL_INTENTS)).build();
         api.getPresence().setStatus(OnlineStatus.OFFLINE);
         this.cmdMan = new CommandManager();
         this.react = new ReactionManager();

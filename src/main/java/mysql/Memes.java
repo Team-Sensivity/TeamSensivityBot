@@ -24,7 +24,7 @@ public class Memes {
 
         try {
             Connection con = Connect.getConnection();
-            String sql = "SELECT * FROM Memes ORDER BY likes LIMIT 1";
+            String sql = "SELECT * FROM Memes ORDER BY likes DESC LIMIT 1";
             Statement stmt  = con.createStatement();
             ResultSet rs    = stmt.executeQuery(sql);
 
