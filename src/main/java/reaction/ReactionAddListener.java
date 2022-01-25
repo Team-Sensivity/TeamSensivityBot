@@ -1,4 +1,4 @@
-package listener;
+package reaction;
 
 import games.MauMau;
 import main.Start;
@@ -93,17 +93,7 @@ public class ReactionAddListener extends ListenerAdapter {
                 }
             }else if (event.getChannelType() == ChannelType.TEXT){
                 if(!event.getUser().isBot()) {
-                    if (event.getChannel().getId().equals(BotInfos.getMemeChannel())) {
-                        if (Memes.isMeme(event.getMessageId())) {
-                            Emoji Emotes = Emoji.fromUnicode(event.getReactionEmote().getEmoji());
-
-                            if(Emotes.equals(Emoji.fromUnicode("U+1F44D"))){
-                                Memes.like(event.getMessageId());
-                            }else if(Emotes.equals(Emoji.fromUnicode("U+1F44E"))){
-                                Memes.dislike(event.getMessageId());
-                            }
-                        }
-                    }
+                    Start.INSTANCE.getReact().perform(event.getMessageId(), event.getMember(), event.getChannel(), Emoji.fromUnicode(event.getReactionEmote().getEmoji()));
                 }
             }
         }

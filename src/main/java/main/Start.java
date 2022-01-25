@@ -21,6 +21,9 @@ import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Category;
 import net.dv8tion.jda.api.entities.VoiceChannel;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import reaction.ReactionAddListener;
+import reaction.ReactionManager;
+import reaction.ReactionRemoveListener;
 
 import javax.security.auth.login.LoginException;
 import java.io.BufferedReader;
@@ -36,6 +39,7 @@ public class Start {
     private JDA api;
 
     private CommandManager cmdMan;
+    private ReactionManager react;
     private boolean status;
 
     public static void main(String[] args) {
@@ -53,6 +57,7 @@ public class Start {
         api = JDABuilder.create(Passwort.getToken(), GatewayIntent.getIntents(GatewayIntent.ALL_INTENTS) ).build();
         api.getPresence().setStatus(OnlineStatus.OFFLINE);
         this.cmdMan = new CommandManager();
+        this.react = new ReactionManager();
 
         addListener(api);
 
@@ -173,6 +178,10 @@ public class Start {
 
     public CommandManager getCmdMan() {
         return cmdMan;
+    }
+
+    public ReactionManager getReact() {
+        return react;
     }
 
     public boolean getStatus(){

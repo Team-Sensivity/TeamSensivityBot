@@ -19,6 +19,27 @@ public class Memes {
         }
     }
 
+    public static String bestMeme(){
+        String meme = "";
+
+        try {
+            Connection con = Connect.getConnection();
+            String sql = "SELECT * FROM Memes ORDER BY likes LIMIT 1";
+            Statement stmt  = con.createStatement();
+            ResultSet rs    = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+              meme = rs.getString("messageid");
+            }
+
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return meme;
+    }
+
     public static boolean isMeme(String message){
         boolean likes = false;
 

@@ -1,5 +1,6 @@
 package main;
 
+import commands.BestMeme;
 import commands.Exit;
 import commands.Start;
 import commands.channel.Save;
@@ -40,6 +41,7 @@ public class CommandManager {
         this.commandsp.put("start", new Start());
         this.commands.put("save", new Save());
         this.commands.put("update", new UpdateUsers());
+        this.commands.put("best", new BestMeme());
     }
 
     public boolean perform(String command, Member m, TextChannel channel, Message message){
