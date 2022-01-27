@@ -11,6 +11,7 @@ import listener.rollen.*;
 import listener.webpanel.AvatarUpdate;
 import listener.webpanel.NameUpdate;
 import listener.webpanel.PlayerLeave;
+import listener.webpanel.StatusUpdate;
 import mysql.BotInfos;
 import mysql.games.KartenUpload;
 import mysql.games.Lobby;
@@ -125,6 +126,7 @@ public class Start {
         builder.addEventListener(new Timeout());
         builder.addEventListener(new ReactionRemoveListener());
         builder.addEventListener(new MessageRemove());
+        builder.addEventListener(new StatusUpdate());
     }
 
     public static void checkChannel(){

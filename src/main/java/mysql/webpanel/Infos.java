@@ -128,4 +128,19 @@ public class Infos {
             e.printStackTrace();
         }
     }
+
+    public static void updateStatus(String id, String Status){
+        try {
+            Connection con = Connect.getConnection();
+
+            PreparedStatement posted = con.prepareStatement("UPDATE users SET status = '" + Status + "' WHERE ID = '" + id + "'");
+
+            posted.executeUpdate();
+            con.close();
+
+        } catch (
+                SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
