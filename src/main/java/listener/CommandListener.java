@@ -45,10 +45,12 @@ public class CommandListener extends ListenerAdapter {
                 if(channel.getId().equals(BotInfos.getMemeChannel())){
                     List<Message.Attachment> attachments = event.getMessage().getAttachments();
                     if(attachments.size() == 1 && attachments.get(0).isImage()){
-                        channel.addReactionById(event.getMessageId(),"U+1F44D").queue();
-                        channel.addReactionById(event.getMessageId(), "U+1F44E").queue();
+                        if(attachments.get(0).getWidth() > 10 && attachments.get(0).getHeight() > 10) {
+                            channel.addReactionById(event.getMessageId(), "U+1F44D").queue();
+                            channel.addReactionById(event.getMessageId(), "U+1F44E").queue();
 
-                        Memes.uploadMeme(event.getMessage());
+                            Memes.uploadMeme(event.getMessage());
+                        }
                     }else if(attachments.size() > 1){
                         EmbedBuilder builder = new EmbedBuilder();
 

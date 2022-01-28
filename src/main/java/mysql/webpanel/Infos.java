@@ -108,11 +108,11 @@ public class Infos {
     }
 
     public static void updateAll(String avatar, String username, String banner, String userid){
-        username.replace("'", "");
-        username.replace("<", "");
-        username.replace(">", "");
-        username.replace("\"", "");
-        username.replace(";", "");
+        username = username.replace("'", "");
+        username = username.replace("<", "");
+        username = username.replace(">", "");
+        username = username.replace("\"", "");
+        username = username.replace(";", "");
 
 
         try {
@@ -130,6 +130,12 @@ public class Infos {
     }
 
     public static void updateStatus(String id, String Status){
+        Status = Status.replace("'", "");
+        Status = Status.replace("<", "");
+        Status = Status.replace(">", "");
+        Status = Status.replace("\"", "");
+        Status = Status.replace(";", "");
+
         try {
             Connection con = Connect.getConnection();
 

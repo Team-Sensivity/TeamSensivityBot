@@ -2,11 +2,8 @@ package reaction;
 
 import games.MauMau;
 import main.Start;
-import mysql.BotInfos;
-import mysql.Memes;
 import mysql.games.KartenUpload;
 import mysql.games.Lobby;
-import mysql.webpanel.CreateAccount;
 import mysql.Reaction;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.ChannelType;
@@ -93,7 +90,9 @@ public class ReactionAddListener extends ListenerAdapter {
                 }
             }else if (event.getChannelType() == ChannelType.TEXT){
                 if(!event.getUser().isBot()) {
-                    Start.INSTANCE.getReact().perform(event.getMessageId(), event.getMember(), event.getChannel(), Emoji.fromUnicode(event.getReactionEmote().getEmoji()));
+                    if(Start.INSTANCE.getReact().addReaction.contains(event.getReactionEmote().getEmoji())) {
+                        Start.INSTANCE.getReact().perform(event.getMessageId(), event.getMember(), event.getChannel(), event.getReactionEmote().getEmoji());
+                    }
                 }
             }
         }
