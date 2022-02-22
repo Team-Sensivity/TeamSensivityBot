@@ -4,8 +4,7 @@ import commands.BestMeme;
 import commands.Exit;
 import commands.Start;
 import commands.channel.Save;
-import commands.games.JoinLobby;
-import commands.games.LeaveLobby;
+import commands.channel.ServerStatus;
 import commands.ticket.CreateTicket;
 import commands.webpanel.Login;
 import commands.webpanel.Register;
@@ -35,13 +34,12 @@ public class CommandManager {
         this.commands.put("perks", new PerksInventar());
         this.commands.put("points", new GetPoints());
         this.commandsp.put("level", new CreateLevel());
-        this.commandsp.put("join", new JoinLobby());
-        this.commandsp.put("leave", new LeaveLobby());
         this.commandsp.put("exit", new Exit());
         this.commandsp.put("start", new Start());
         this.commands.put("save", new Save());
         this.commands.put("update", new UpdateUsers());
         this.commands.put("best", new BestMeme());
+        this.commands.put("status", new ServerStatus());
     }
 
     public boolean perform(String command, Member m, TextChannel channel, Message message){

@@ -56,7 +56,7 @@ public class CreateAccount {
     }
 
     public static void uploadRollen(String id){
-        List<Role> rollen = Start.INSTANCE.getApi().getGuilds().get(0).getMemberById(id).getRoles();
+        List<Role> rollen = Start.INSTANCE.getApi().getGuildById("773995277840941067").getMemberById(id).getRoles();
         deleteRollen(id);
 
         try {
@@ -90,7 +90,7 @@ public class CreateAccount {
 
     public static String getRole(String id){
 
-        List<Role> roles = Start.INSTANCE.getApi().getGuilds().get(0).getMemberById(id).getRoles();
+        List<Role> roles = Start.INSTANCE.getApi().getGuildById("773995277840941067").getMemberById(id).getRoles();
         List<String> rollen = getRollen();
 
         for(int i = 0; i < roles.size(); i++){

@@ -23,17 +23,17 @@ public class SprachchatConnect extends ListenerAdapter {
 
             if(event.getChannelJoined().getId().equals(BotInfos.getChannel())){
                 final String[] ids = new String[3];
-                Start.INSTANCE.getApi().getGuilds().get(0).createCategory("--- " + event.getMember().getEffectiveName() + "s Channel ---").queue((category) -> {
+                Start.INSTANCE.getApi().getGuildById("773995277840941067").createCategory("--- " + event.getMember().getEffectiveName() + "s Channel ---").queue((category) -> {
                     ids[0] = category.getId();
 
-                    Start.INSTANCE.getApi().getGuilds().get(0).getCategoryById(ids[0]).createTextChannel(event.getMember().getEffectiveName() + "s TextChannel").queue((channel) -> {
+                    Start.INSTANCE.getApi().getGuildById("773995277840941067").getCategoryById(ids[0]).createTextChannel(event.getMember().getEffectiveName() + "s TextChannel").queue((channel) -> {
                         ids[1] = channel.getId();
                     });
-                    Start.INSTANCE.getApi().getGuilds().get(0).getCategoryById(ids[0]).createVoiceChannel(event.getMember().getEffectiveName() + "s Channel").queue((channel) -> {
-                        Start.INSTANCE.getApi().getGuilds().get(0).moveVoiceMember(event.getMember(), channel).queue();
+                    Start.INSTANCE.getApi().getGuildById("773995277840941067").getCategoryById(ids[0]).createVoiceChannel(event.getMember().getEffectiveName() + "s Channel").queue((channel) -> {
+                        Start.INSTANCE.getApi().getGuildById("773995277840941067").moveVoiceMember(event.getMember(), channel).queue();
                         ids[2] = channel.getId();
                         TemporereChannel.createChannel(ids[2], ids[1], ids[0]);
-                        Start.INSTANCE.getApi().getGuilds().get(0).modifyCategoryPositions().selectPosition(Start.INSTANCE.getApi().getCategoryById(ids[0]).getPosition()).moveUp(9).queue();
+                        Start.INSTANCE.getApi().getGuildById("773995277840941067").modifyCategoryPositions().selectPosition(Start.INSTANCE.getApi().getCategoryById(ids[0]).getPosition()).moveUp(9).queue();
                     });
                 });
             }

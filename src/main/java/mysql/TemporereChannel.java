@@ -156,6 +156,19 @@ public class TemporereChannel {
     }
 
     public static void saveChat(String author, String nachricht, String user, int number , String MessId){
+
+        author = author.replace("'", "");
+        author = author.replace("<", "");
+        author = author.replace(">", "");
+        author = author.replace("\"", "");
+        author = author.replace(";", "");
+
+        nachricht = nachricht.replace("'", "");
+        nachricht = nachricht.replace("<", "");
+        nachricht = nachricht.replace(">", "");
+        nachricht = nachricht.replace("\"", "");
+        nachricht = nachricht.replace(";", "");
+
         try {
             Connection con = Connect.getConnection();
 

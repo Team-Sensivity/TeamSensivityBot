@@ -1,6 +1,5 @@
 package main;
 
-import funktionen.ResetOnlineTime;
 import geheim.Passwort;
 import listener.*;
 import listener.punktesystem.ChannelRemove;
@@ -12,13 +11,13 @@ import listener.webpanel.AvatarUpdate;
 import listener.webpanel.NameUpdate;
 import listener.webpanel.PlayerLeave;
 import listener.webpanel.StatusUpdate;
+import mitteilungen.Mitteilungen;
 import mysql.BotInfos;
-import mysql.games.KartenUpload;
-import mysql.games.Lobby;
 import mysql.TemporereChannel;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
+import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Category;
 import net.dv8tion.jda.api.entities.VoiceChannel;
 import net.dv8tion.jda.api.requests.GatewayIntent;
@@ -30,7 +29,6 @@ import javax.security.auth.login.LoginException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Calendar;
 import java.util.Timer;
 
 public class Start {
@@ -38,10 +36,12 @@ public class Start {
     public static Start INSTANCE;
 
     private JDA api;
+    private String version = "1.2.2";
 
     private CommandManager cmdMan;
     private ReactionManager react;
     private boolean status;
+    private Timer timer;
 
     public static void main(String[] args) {
         try {
@@ -54,22 +54,20 @@ public class Start {
     public Start() throws LoginException, IllegalArgumentException {
 
         INSTANCE = this;
-        status = false;
+        status = true;
         api = JDABuilder.create(Passwort.getToken(), GatewayIntent.getIntents(GatewayIntent.ALL_INTENTS)).build();
-        api.getPresence().setStatus(OnlineStatus.OFFLINE);
+        api.getPresence().setStatus(OnlineStatus.ONLINE);
+        api.getPresence().setActivity(Activity.competing("Version " + version));
+
         this.cmdMan = new CommandManager();
         this.react = new ReactionManager();
 
         addListener(api);
 
-        System.out.println("Bot ist an muss aber noch mit &start gestartet werden...");
-
         shutdown();
 
-        Lobby.clearTable();
-        KartenUpload.clearTable();
-        KartenUpload.clearTable2();
-        isSo();
+        timer = new Timer();
+        timer.schedule(new Mitteilungen(), 0, 10000);
     }
 
     public void shutdown(){
@@ -89,6 +87,7 @@ public class Start {
                     }else if (line.equalsIgnoreCase("run")){
                         if (api != null){
                             api.getPresence().setStatus(OnlineStatus.ONLINE);
+                            api.getPresence().setActivity(Activity.competing("Version " + version));
                             setStatus(true);
                             checkChannel();
                             System.out.println("Bot ist online!");
@@ -130,12 +129,12 @@ public class Start {
     }
 
     public static void checkChannel(){
-        for (Category c : Start.INSTANCE.getApi().getGuilds().get(0).getCategories()) {
+        for (Category c : Start.INSTANCE.getApi().getGuildById("773995277840941067").getCategories()) {
             if(TemporereChannel.isExistCat(c.getId())){
                 if(c.getMembers().size() == 0){
-                    Start.INSTANCE.getApi().getGuilds().get(0).getCategoryById(c.getId()).delete().queue();
-                    Start.INSTANCE.getApi().getGuilds().get(0).getVoiceChannelById(TemporereChannel.getVoiceChannel(c.getId())).delete().queue();
-                    Start.INSTANCE.getApi().getGuilds().get(0).getTextChannelById(TemporereChannel.getTextChannel(TemporereChannel.getTextChannel(c.getId()))).delete().queue();
+                    Start.INSTANCE.getApi().getGuildById("773995277840941067").getCategoryById(c.getId()).delete().queue();
+                    Start.INSTANCE.getApi().getGuildById("773995277840941067").getVoiceChannelById(TemporereChannel.getVoiceChannel(c.getId())).delete().queue();
+                    Start.INSTANCE.getApi().getGuildById("773995277840941067").getTextChannelById(TemporereChannel.getTextChannel(TemporereChannel.getTextChannel(c.getId()))).delete().queue();
                     TemporereChannel.removeChannelCat(c.getId());
                 }
             }
@@ -144,38 +143,19 @@ public class Start {
         boolean i = false;
         String id = BotInfos.getChannel();
 
-        for (VoiceChannel c : Start.INSTANCE.getApi().getGuilds().get(0).getVoiceChannels()) {
+        for (VoiceChannel c : Start.INSTANCE.getApi().getGuildById("773995277840941067").getVoiceChannels()) {
             if(c.getId().equals(id)){
                 i = true;
             }
         }
 
         if(!i){
-            Start.INSTANCE.getApi().getGuilds().get(0).getCategoryById("774354036920418324").createVoiceChannel("Create Channel").queue((channel) -> {
+            Start.INSTANCE.getApi().getGuildById("773995277840941067").getCategoryById("774354036920418324").createVoiceChannel("Create Channel").queue((channel) -> {
                 BotInfos.updateChannel(channel.getId(), id);
-                Start.INSTANCE.getApi().getGuilds().get(0).getCategoryById("774354036920418324").modifyVoiceChannelPositions().selectPosition(channel.getPosition() - (Start.INSTANCE.getApi().getGuilds().get(0).getVoiceChannels().size() - channel.getParentCategory().getVoiceChannels().size())).moveTo(0).queue();
+                Start.INSTANCE.getApi().getGuildById("773995277840941067").getCategoryById("774354036920418324").modifyVoiceChannelPositions().selectPosition(channel.getPosition() - (Start.INSTANCE.getApi().getGuildById("773995277840941067").getVoiceChannels().size() - channel.getParentCategory().getVoiceChannels().size())).moveTo(0).queue();
             });
         }
 
-    }
-
-    public void isSo(){
-        Timer timer = new Timer();
-        Calendar date = Calendar.getInstance();
-        date.set(
-                Calendar.DAY_OF_WEEK,
-                Calendar.SUNDAY
-        );
-        date.set(Calendar.HOUR, 0);
-        date.set(Calendar.MINUTE, 0);
-        date.set(Calendar.SECOND, 0);
-        date.set(Calendar.MILLISECOND, 0);
-        //Schedule to run every Sunday in midnight
-        timer.schedule(
-                new ResetOnlineTime(),
-                date.getTime(),
-                1000 * 60 * 60 * 24 * 7
-        );
     }
 
     public CommandManager getCmdMan() {

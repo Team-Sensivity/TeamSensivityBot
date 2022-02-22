@@ -1,3 +1,9 @@
 Manifest-Version: 1.0
 Main-Class: main.Start
+Class-Path: nv-websocket-client-2.14.jar jackson-annotations-2.10.1.jar 
+ okhttp-3.13.0.jar slf4j-simple-1.7.33.jar slf4j-api-1.7.33.jar mysql-co
+ nnector-java-8.0.27.jar jackson-core-2.10.1.jar commons-collections4-4.
+ 1.jar commons-net-3.8.0.jar JDA-5.0.0-alpha.5.jar jackson-databind-2.10
+ .1.jar annotations-16.0.1.jar trove4j-3.0.3.jar jsr305-3.0.2.jar okio-1
+ .17.2.jar
 

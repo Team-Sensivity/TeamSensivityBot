@@ -18,7 +18,7 @@ public class UpdateUsers implements ServerCommand {
     public void performCommand(Member m, TextChannel channel, Message message) {
 
         if (m.getId().equals("422148236875137059")) {
-            Guild g = Start.INSTANCE.getApi().getGuilds().get(0);
+            Guild g = Start.INSTANCE.getApi().getGuildById("773995277840941067");
             List<Member> members = g.getMembers();
 
             ArrayList<Member> [] memberLists = new ArrayList[4];

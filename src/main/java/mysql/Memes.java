@@ -60,7 +60,7 @@ public class Memes {
             boolean exist = false;
 
             while (rs.next()) {
-                d1 = LocalDateTime.parse(rs.getString("date"), sdf);
+                d1 = LocalDateTime.parse(rs.getString("time"), sdf);
 
                 if(d1.getMonth() == d3.getMonth() && !exist){
                     meme = rs.getString("messageid");

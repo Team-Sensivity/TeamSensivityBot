@@ -24,7 +24,7 @@ public class Login implements PrivateCommand {
             builder.setThumbnail("https://sensivity.michel929.de/webpanel/assets/images/logo.png");
             builder.setColor(0x6DE194);
 
-            String link = "https://sensivity.michel929.de/webpanel/login-discord.php?id=" + token;
+            String link = "https://sensivity.michel929.de/webpanel/login.php?id=" + token;
             builder.addField("Link:" , ">> " + link, false);
 
             channel.sendMessageEmbeds(builder.build()).queue();

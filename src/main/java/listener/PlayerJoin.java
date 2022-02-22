@@ -15,7 +15,7 @@ public class PlayerJoin extends ListenerAdapter {
     public void onGuildMemberJoin(GuildMemberJoinEvent event) {
 
         if(Start.INSTANCE.getStatus()) {
-            Role user = Start.INSTANCE.getApi().getGuilds().get(0).getRoleById(BotInfos.getStandardRole());
+            Role user = Start.INSTANCE.getApi().getGuildById("773995277840941067").getRoleById(BotInfos.getStandardRole());
             event.getGuild().addRoleToMember(event.getMember(), user).queue();
             User.Profile p = event.getUser().retrieveProfile().complete();
             CreateAccount.create(event.getUser().getName(), event.getUser().getId(), event.getUser().getEffectiveAvatarUrl(), CreateAccount.getRole(event.getUser().getId()), p.getBannerUrl());

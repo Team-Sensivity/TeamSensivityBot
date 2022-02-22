@@ -23,6 +23,6 @@ public class PlayerLeave extends ListenerAdapter {
         builder.setAuthor("Team Sensivity");
         builder.setDescription("Der User **" + event.getUser().getName() + "** hat den Server verlassen...");
 
-        Start.INSTANCE.getApi().getGuilds().get(0).getTextChannelById("774266159658041384").sendMessageEmbeds(builder.build()).queue();
+        Start.INSTANCE.getApi().getGuildById("773995277840941067").getTextChannelById("774266159658041384").sendMessageEmbeds(builder.build()).queue();
     }
 }
