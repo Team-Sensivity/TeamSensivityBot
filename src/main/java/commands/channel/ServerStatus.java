@@ -19,6 +19,10 @@ public class ServerStatus implements ServerCommand {
             builder.setAuthor("Team Sensivity");
             builder.setDescription("Hier findest du eine Übersicht welche Team Sensivity Server gerade Online sind und welche nicht.");
             builder.addField("**MinecraftServer**", "Status: " + BotInfos.getMinecraft(), false);
+            builder.addField("**SpaceEngineersServer**", "Status: " + BotInfos.getSpace(), false);
+            builder.addField("**Dashboard**", "Status: " + BotInfos.getDash(), false);
+            builder.addBlankField(false);
+            builder.addField("**Genauere Infos findest du unter:**", ">> https://monitor.michel929.de/status", false);
 
             channel.sendMessageEmbeds(builder.build()).queue();
         }

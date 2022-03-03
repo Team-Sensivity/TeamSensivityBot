@@ -34,6 +34,7 @@ import java.util.Timer;
 public class Start {
 
     public static Start INSTANCE;
+    public static  Timer timer;
 
     private JDA api;
     private String version = "1.2.2";
@@ -41,7 +42,6 @@ public class Start {
     private CommandManager cmdMan;
     private ReactionManager react;
     private boolean status;
-    private Timer timer;
 
     public static void main(String[] args) {
         try {
@@ -58,6 +58,7 @@ public class Start {
         api = JDABuilder.create(Passwort.getToken(), GatewayIntent.getIntents(GatewayIntent.ALL_INTENTS)).build();
         api.getPresence().setStatus(OnlineStatus.ONLINE);
         api.getPresence().setActivity(Activity.competing("Version " + version));
+        api.setAutoReconnect(true);
 
         this.cmdMan = new CommandManager();
         this.react = new ReactionManager();
@@ -67,6 +68,9 @@ public class Start {
         shutdown();
 
         timer = new Timer();
+    }
+
+    public static void startTimer(){
         timer.schedule(new Mitteilungen(), 0, 10000);
     }
 
@@ -120,6 +124,7 @@ public class Start {
         builder.addEventListener(new RollenRemoveFromMember());
         builder.addEventListener(new SprachchatMove());
         builder.addEventListener(new ChannelRemove());
+        builder.addEventListener(new Fertig());
         builder.addEventListener(new PlayerJoin());
         builder.addEventListener(new PlayerLeave());
         builder.addEventListener(new Timeout());

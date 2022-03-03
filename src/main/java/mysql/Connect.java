@@ -9,8 +9,8 @@ import java.sql.SQLException;
 
 public class Connect {
 
-    static String url = "jdbc:mysql://45.88.108.231:3306/u8146-785_discord";
-    static String user = "michel_929";
+    static String url = "jdbc:mysql://192.168.178.200:3306/discord";
+    static String user = "discord";
     static String pass = Passwort.getDatabasePassword();
 
     public static Connection getConnection(){

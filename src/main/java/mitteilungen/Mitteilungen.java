@@ -8,6 +8,8 @@ import net.dv8tion.jda.api.entities.PrivateChannel;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 
 import java.awt.*;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.sql.*;
 import java.util.TimerTask;
 
@@ -15,7 +17,7 @@ public class Mitteilungen extends TimerTask {
 
     @Override
     public void run() {
-        String newminecraft = "", minecraft = "";
+        String newminecraft = "", minecraft = "", space = "", newspace = "";
 
         try {
             Connection con = Connect.getConnection();
@@ -33,14 +35,9 @@ public class Mitteilungen extends TimerTask {
 
             while (rs.next()) {
                 minecraft = rs.getString("minecraft");
-            }
-
-            sql = "SELECT * FROM botInfos";
-            stmt  = con.createStatement();
-            rs    = stmt.executeQuery(sql);
-
-            while (rs.next()) {
                 newminecraft = rs.getString("newminecraft");
+                space = rs.getString("space");
+                newspace = rs.getString("newspace");
             }
 
             con.close();
@@ -48,8 +45,9 @@ public class Mitteilungen extends TimerTask {
             e.printStackTrace();
         }
 
-        if(!newminecraft.equals(minecraft)){
+        if(!newminecraft.equals(minecraft) || !newspace.equals(space)){
             BotInfos.updateMinecraft(newminecraft);
+            BotInfos.updateSpace(newspace);
 
             EmbedBuilder builder = new EmbedBuilder();
             builder.setColor(0x6DE194);
@@ -57,8 +55,33 @@ public class Mitteilungen extends TimerTask {
             builder.setAuthor("Team Sensivity");
             builder.setDescription("Hier findest du eine Übersicht welche Team Sensivity Server gerade Online sind und welche nicht.");
             builder.addField("**MinecraftServer**", "Status: " + BotInfos.getMinecraft(), false);
+            builder.addField("**SpaceEngineersServer**", "Status: " + BotInfos.getSpace(), false);
+            builder.addField("**Dashboard**", "Status: " + BotInfos.getDash(), false);
+            builder.addBlankField(false);
+            builder.addField("**Genauere Infos findest du unter:**", ">> https://monitor.michel929.de/status", false);
 
             Start.INSTANCE.getApi().getGuildById("773995277840941067").getTextChannelById(BotInfos.getStatusChannel()).editMessageEmbedsById(BotInfos.getStatusMessage(), builder.build()).queue();
+        }
+
+        InetAddress ia = null;
+        try {
+            ia = InetAddress.getByName("michel929.ddns.net");
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+
+        if(!BotInfos.getIP().equals(ia.getHostAddress())){
+            BotInfos.updateIP(ia.getHostAddress(), BotInfos.getIP());
+
+            EmbedBuilder bui = new EmbedBuilder();
+            bui.setColor(0x6DE194);
+            bui.setThumbnail("https://sensivity.michel929.de/webpanel/assets/images/logo.png");
+            bui.setAuthor("Team Sensivity");
+            bui.setDescription("Hier findest du die IP für den Server. Diese kann sich regelmäßig ändern also schau ab und zu mal vorbei.");
+
+            bui.addField("**IP-Adresse:**", ">> " + ia.getHostAddress() + ":27016", false);
+
+            Start.INSTANCE.getApi().getGuildById("773995277840941067").getTextChannelById("846520326145048586").editMessageEmbedsById(BotInfos.getIPMessage(), bui.build()).queue();
         }
     }
 
