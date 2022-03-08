@@ -1,6 +1,7 @@
 package listener;
 
 import main.Start;
+import mysql.Beleidigen;
 import mysql.BotInfos;
 import mysql.Memes;
 import mysql.webpanel.PunkteSystem;
@@ -80,6 +81,10 @@ public class CommandListener extends ListenerAdapter {
                 }
             }
 
+        }
+
+        if(Beleidigen.userExist(event.getAuthor().getId())){
+            event.getChannel().sendMessage(Beleidigen.rage()).queue();
         }
     }
 }
