@@ -1,6 +1,7 @@
 package commands.channel;
 
 import commands.types.ServerCommand;
+import mysql.Log;
 import mysql.TemporereChannel;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.*;
@@ -32,6 +33,7 @@ public class Save implements ServerCommand {
             builder.setColor(0x6DE194);
 
             channel.sendMessageEmbeds(builder.build()).queue();
+            Log.updateLog("Der Chat wurde gespeichert...", m.getEffectiveName());
         }else {
             EmbedBuilder builder = new EmbedBuilder();
             builder.setTitle("**Fehler bei der Benutzung des Commands**");
@@ -40,6 +42,8 @@ public class Save implements ServerCommand {
             builder.setColor(Color.RED);
 
             channel.sendMessageEmbeds(builder.build()).queue();
+
+            Log.updateLog("Fehlerhafte nutzung des Commands *Save*", m.getEffectiveName());
         }
     }
 }

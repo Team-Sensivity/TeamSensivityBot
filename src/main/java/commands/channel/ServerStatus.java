@@ -2,11 +2,14 @@ package commands.channel;
 
 import commands.types.ServerCommand;
 import mysql.BotInfos;
+import mysql.Log;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
+
+import java.awt.*;
 
 public class ServerStatus implements ServerCommand {
 
@@ -25,6 +28,18 @@ public class ServerStatus implements ServerCommand {
             builder.addField("**Genauere Infos findest du unter:**", ">> https://monitor.michel929.de/status", false);
 
             channel.sendMessageEmbeds(builder.build()).queue();
+
+            Log.updateLog("Neue Status Nachricht wurde erstellt", m.getEffectiveName());
+        }else {
+            EmbedBuilder builder = new EmbedBuilder();
+            builder.setColor(Color.RED);
+            builder.setAuthor("Team Sensivity");
+            builder.setDescription("Du hast keine Berechtigungen für diesen Command");
+            builder.setThumbnail("https://sensivity.michel929.de/webpanel/assets/images/logo.png");
+
+            channel.sendMessageEmbeds(builder.build()).queue();
+
+            Log.updateLog("Keine Berechtigung für den Command", m.getEffectiveName());
         }
     }
 }

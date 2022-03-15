@@ -1,6 +1,7 @@
 package commands.webpanel;
 
 import commands.types.PrivateCommand;
+import mysql.Log;
 import mysql.webpanel.CreateAccount;
 import mysql.webpanel.TokenErstellen;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -21,6 +22,8 @@ public class Register implements PrivateCommand {
             builder.setAuthor("Team Sensivity");
 
             channel.sendMessageEmbeds(builder.build()).queue();
+
+            Log.updateLog("Fehler beim Registrieren", m.getName());
         }else {
             User.Profile p = m.retrieveProfile().complete();
 
@@ -34,6 +37,8 @@ public class Register implements PrivateCommand {
             builder.setAuthor("Team Sensivity");
 
             channel.sendMessageEmbeds(builder.build()).queue();
+
+            Log.updateLog("User hat sich erfolgreich Registriert", m.getName());
         }
     }
 }

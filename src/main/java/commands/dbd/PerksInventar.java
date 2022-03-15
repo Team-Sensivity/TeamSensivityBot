@@ -1,6 +1,7 @@
 package commands.dbd;
 
 import commands.types.ServerCommand;
+import mysql.Log;
 import mysql.PerksList;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
@@ -55,15 +56,18 @@ public class PerksInventar implements ServerCommand {
                 if (infos.size() != 0){
                     EmbedBuilder builder = new EmbedBuilder();
                     builder.setAuthor("PerkManager");
-                    builder.setColor(new Color(0x6DE194));
+                    builder.setColor(0x6DE194);
                     builder.setTitle(infos.get(2) + " - " + infos.get(0));
                     builder.addField("Beschreibung", infos.get(3), false);
                     builder.setThumbnail(infos.get(1));
 
                     channel.sendMessageEmbeds(builder.build()).queue();
 
+                    Log.updateLog("Perk wurde gesendet", m.getEffectiveName());
                 }else {
                     channel.sendMessage("Kein Passendes Perk wurde zu diesem Namen ("+ Name + ") gefunden!!").queue();
+
+                    Log.updateLog("Es wurde kein Perk gefunden", m.getEffectiveName());
                 }
             }
         }

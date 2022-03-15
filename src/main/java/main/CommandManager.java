@@ -5,7 +5,6 @@ import commands.Exit;
 import commands.Start;
 import commands.channel.Save;
 import commands.channel.ServerStatus;
-import commands.ticket.CreateTicket;
 import commands.webpanel.Login;
 import commands.webpanel.Register;
 import commands.dbd.PerksInventar;
@@ -27,7 +26,6 @@ public class CommandManager {
         this.commands = new ConcurrentHashMap<>();
         this.commandsp = new ConcurrentHashMap<>();
 
-        this.commands.put("ticket", new CreateTicket());
         this.commandsp.put("register", new Register());
         this.commandsp.put("login", new Login());
         this.commandsp.put("token", new Token());

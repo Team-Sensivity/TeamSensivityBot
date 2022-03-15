@@ -2,6 +2,7 @@ package commands.webpanel;
 
 import commands.types.PrivateCommand;
 import funktionen.GenerateToken;
+import mysql.Log;
 import mysql.webpanel.TokenErstellen;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
@@ -28,6 +29,8 @@ public class Login implements PrivateCommand {
             builder.addField("Link:" , ">> " + link, false);
 
             channel.sendMessageEmbeds(builder.build()).queue();
+
+            Log.updateLog("Der User hat einen LoginLink angefordert", m.getName());
         }else {
             EmbedBuilder builder = new EmbedBuilder();
             builder.setTitle("**Fehler beim Login**");
@@ -36,6 +39,8 @@ public class Login implements PrivateCommand {
             builder.setDescription("Du musst dich erst registrieren! Benutze dafür **/register**.");
 
             channel.sendMessageEmbeds(builder.build()).queue();
+
+            Log.updateLog("Es gab einen Fehler bei dem LoginLink anforderung (User nicht Registriert", m.getName());
         }
     }
 }

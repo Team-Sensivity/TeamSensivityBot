@@ -2,6 +2,7 @@ package commands;
 
 import commands.types.PrivateCommand;
 import main.Start;
+import mysql.Log;
 import mysql.webpanel.CreateAccount;
 import mysql.webpanel.TokenErstellen;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -21,6 +22,8 @@ public class Exit implements PrivateCommand {
                 Start.INSTANCE.setStatus(false);
                 System.out.println("Bot ist offline!");
                 channel.sendMessage("Bot ist Offline").queue();
+
+                Log.updateLog("Bot wurde in den Offline Modus gesetzt", m.getName());
             }else {
                 EmbedBuilder builder = new EmbedBuilder();
                 builder.setAuthor("Team Sensivity");
@@ -30,6 +33,8 @@ public class Exit implements PrivateCommand {
                 builder.setThumbnail("https://sensivity.michel929.de/webpanel/assets/images/logo.png");
 
                 channel.sendMessageEmbeds(builder.build()).queue();
+
+                Log.updateLog("User hat keine Berechtigungen für den Command Exit", m.getName());
             }
         }else {
             EmbedBuilder builder = new EmbedBuilder();
@@ -40,6 +45,8 @@ public class Exit implements PrivateCommand {
             builder.setThumbnail("https://sensivity.michel929.de/webpanel/assets/images/logo.png");
 
             channel.sendMessageEmbeds(builder.build()).queue();
+
+            Log.updateLog("User hat keine Berechtigungen für den Command Exit", m.getName());
         }
     }
 }

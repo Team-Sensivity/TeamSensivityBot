@@ -2,6 +2,7 @@ package commands.webpanel;
 
 import commands.types.PrivateCommand;
 import funktionen.GenerateToken;
+import mysql.Log;
 import mysql.webpanel.TokenErstellen;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
@@ -35,6 +36,8 @@ public class Token implements PrivateCommand {
             builder.setDescription("Du musst dich erst Registrieren. Benutze dafür **&register <password>**.");
 
             channel.sendMessageEmbeds(builder.build()).queue();
+
+            Log.updateLog("Fehler bei der Token erstellung.");
         }
     }
 }

@@ -1,6 +1,7 @@
 package commands.punktesystem;
 
 import commands.types.PrivateCommand;
+import mysql.Log;
 import mysql.webpanel.Infos;
 import mysql.webpanel.LevelUpload;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -38,22 +39,33 @@ public class CreateLevel implements PrivateCommand {
                         if (LevelUpload.xpHigh(xp, level)){
                             LevelUpload.createLevel(level, xp);
                             channel.sendMessage("Du hast ein Level erstellt!!").queue();
+
+                            Log.updateLog("Ein Level wurde erstellt", m.getName());
+
                         }else {
                             builder.setDescription("Du musst den XP Wert höher stellen!!");
                             channel.sendMessageEmbeds(builder.build()).queue();
+
+                            Log.updateLog("Level erstellen fehlgeschlagen", m.getName());
                         }
                     }else {
                         builder.setDescription("Dieses Level existiert bereits!!");
                         channel.sendMessageEmbeds(builder.build()).queue();
+
+                        Log.updateLog("Level erstellen fehlgeschlagen", m.getName());
                     }
                 }
             }else {
                 builder.setDescription("Benutze &level <level> <xp>");
                 channel.sendMessageEmbeds(builder.build()).queue();
+
+                Log.updateLog("Falsche benutzung des Commands Level", m.getName());
             }
         }else {
             builder.setDescription("Du hast keine Berechtigung dafür!!");
             channel.sendMessageEmbeds(builder.build()).queue();
+
+            Log.updateLog("User hat keine Berechtigungen für den Command Level", m.getName());
         }
     }
 }

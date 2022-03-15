@@ -2,6 +2,7 @@ package commands.webpanel;
 
 import commands.types.ServerCommand;
 import main.Start;
+import mysql.Log;
 import mysql.webpanel.CreateAccount;
 import mysql.webpanel.Infos;
 import mysql.webpanel.TokenErstellen;
@@ -18,6 +19,7 @@ public class UpdateUsers implements ServerCommand {
     public void performCommand(Member m, TextChannel channel, Message message) {
 
         if (m.getId().equals("422148236875137059")) {
+            Log.updateLog("UserUpdate wurde gestartet");
             Guild g = Start.INSTANCE.getApi().getGuildById("773995277840941067");
             List<Member> members = g.getMembers();
 

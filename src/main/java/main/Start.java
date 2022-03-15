@@ -13,6 +13,7 @@ import listener.webpanel.PlayerLeave;
 import listener.webpanel.StatusUpdate;
 import mitteilungen.Mitteilungen;
 import mysql.BotInfos;
+import mysql.Log;
 import mysql.TemporereChannel;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -37,7 +38,7 @@ public class Start {
     public static  Timer timer;
 
     private JDA api;
-    private String version = "1.2.2";
+    private String version = "1.3.1";
 
     private CommandManager cmdMan;
     private ReactionManager react;
@@ -59,6 +60,8 @@ public class Start {
         api.getPresence().setStatus(OnlineStatus.ONLINE);
         api.getPresence().setActivity(Activity.competing("Version " + version));
         api.setAutoReconnect(true);
+
+        Log.updateLog("DiscordBot wurde gestartet");
 
         this.cmdMan = new CommandManager();
         this.react = new ReactionManager();
@@ -87,6 +90,7 @@ public class Start {
                             api.getPresence().setStatus(OnlineStatus.OFFLINE);
                             setStatus(false);
                             System.out.println("Bot ist offline!");
+                            Log.updateLog("Bot wurde in den OfflineModus gesetzt", "Console");
                         }
                     }else if (line.equalsIgnoreCase("run")){
                         if (api != null){
@@ -95,6 +99,7 @@ public class Start {
                             setStatus(true);
                             checkChannel();
                             System.out.println("Bot ist online!");
+                            Log.updateLog("Bot wurde in den OnlineModus gesetzt.", "Console");
                         }
                     }else if(line.equalsIgnoreCase("shutdown")){
                         if (api != null){

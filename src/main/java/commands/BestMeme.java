@@ -1,6 +1,7 @@
 package commands;
 
 import commands.types.ServerCommand;
+import mysql.Log;
 import mysql.Memes;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
@@ -18,6 +19,7 @@ public class BestMeme implements ServerCommand {
 
         if(args.length == 1) {
             String meme = Memes.bestMeme();
+            Log.updateLog("Das beste Meme wurde angefordert", m.getEffectiveName());
             int i = 0;
             boolean exist = false;
             String messsageid = channel.getLatestMessageId();
@@ -54,6 +56,7 @@ public class BestMeme implements ServerCommand {
         }else {
             if (args.length > 1) {
                 if (args[1].equalsIgnoreCase("month")) {
+                    Log.updateLog("Meme des Monats wurde angefordert", m.getEffectiveName());
                     String meme = Memes.MemeOfTheMonth();
                     int i = 0;
                     boolean exist = false;

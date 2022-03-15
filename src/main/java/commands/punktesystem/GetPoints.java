@@ -1,6 +1,7 @@
 package commands.punktesystem;
 
 import commands.types.ServerCommand;
+import mysql.Log;
 import mysql.webpanel.PunkteSystem;
 import mysql.webpanel.TokenErstellen;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -29,6 +30,8 @@ public class GetPoints implements ServerCommand {
                 builder.setAuthor("Team Sensivity");
 
                 channel.sendMessageEmbeds(builder.build()).queue();
+
+                Log.updateLog("Der User hat seine Punkte angefragt", m.getEffectiveName());
             }else {
                 EmbedBuilder builder = new EmbedBuilder();
                 builder.setTitle("**Fehler beim ermitteln der Punkte**");
@@ -37,6 +40,8 @@ public class GetPoints implements ServerCommand {
                 builder.setDescription("Du musst dich erst registrieren! Benutze dafür **/register**.");
 
                 channel.sendMessageEmbeds(builder.build()).queue();
+
+                Log.updateLog("Es gab einen Fehler bei der Punkte ermittlung", m.getEffectiveName());
             }
     }
 }
