@@ -11,6 +11,7 @@ import reaction.type.AddReaction;
 import reaction.type.RemovePrivateReaction;
 import reaction.type.RemoveReaction;
 
+import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ReactionManager {
