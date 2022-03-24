@@ -5,15 +5,12 @@ import commands.Exit;
 import commands.Start;
 import commands.channel.Save;
 import commands.channel.ServerStatus;
-import commands.webpanel.Login;
-import commands.webpanel.Register;
+import commands.webpanel.*;
 import commands.dbd.PerksInventar;
-import commands.webpanel.Token;
 import commands.punktesystem.CreateLevel;
 import commands.punktesystem.GetPoints;
 import commands.types.PrivateCommand;
 import commands.types.ServerCommand;
-import commands.webpanel.UpdateUsers;
 import net.dv8tion.jda.api.entities.*;
 
 import java.util.concurrent.ConcurrentHashMap;
@@ -38,6 +35,8 @@ public class CommandManager {
         this.commands.put("update", new UpdateUsers());
         this.commands.put("best", new BestMeme());
         this.commands.put("status", new ServerStatus());
+        this.commands.put("login", new LoginS());
+        this.commands.put("token", new TokenS());
     }
 
     public boolean perform(String command, Member m, TextChannel channel, Message message){

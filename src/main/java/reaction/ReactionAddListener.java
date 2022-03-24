@@ -12,7 +12,7 @@ public class ReactionAddListener extends ListenerAdapter {
         if (Start.INSTANCE.getStatus()) {
             if (event.getChannelType() == ChannelType.TEXT){
                 if(!event.getUser().isBot()) {
-                    if(Start.INSTANCE.getReact().addReaction.contains(event.getReactionEmote().getEmoji())) {
+                    if(Start.INSTANCE.getReact().addReaction.containsKey(event.getReactionEmote().getEmoji())) {
                         Start.INSTANCE.getReact().perform(event.getMessageId(), event.getMember(), event.getChannel(), event.getReactionEmote().getEmoji());
                     }
                 }

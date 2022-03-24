@@ -11,7 +11,7 @@ public class ReactionRemoveListener extends ListenerAdapter {
         if(Start.INSTANCE.getStatus()) {
             if (event.getChannelType() == ChannelType.TEXT) {
                 if (!event.getUser().isBot()) {
-                    if (Start.INSTANCE.getReact().removeReaction.contains(event.getReactionEmote().getEmoji()))
+                    if (Start.INSTANCE.getReact().removeReaction.containsKey(event.getReactionEmote().getEmoji()))
                         Start.INSTANCE.getReact().performR(event.getMessageId(), event.getMember(), event.getChannel(), event.getReactionEmote().getEmoji());
                 }
             }
