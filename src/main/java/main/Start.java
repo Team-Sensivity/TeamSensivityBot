@@ -38,7 +38,7 @@ public class Start {
     public static  Timer timer;
 
     private JDA api;
-    private String version = "1.3.2";
+    private String version = "1.3.3";
 
     private CommandManager cmdMan;
     private ReactionManager react;
