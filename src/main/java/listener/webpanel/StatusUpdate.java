@@ -14,23 +14,33 @@ public class StatusUpdate extends ListenerAdapter {
             if (event.getNewOnlineStatus().name().equals("IDLE")) {
                 Infos.updateStatus(event.getUser().getId(), "ABWESEND");
 
-                if(event.getMember().getVoiceState().inAudioChannel() && !event.getMember().hasPermission(Permission.ADMINISTRATOR)){
+                if(event.getMember().getVoiceState().inAudioChannel() && !event.getMember().isOwner()){
                     if(event.getMember().getNickname() != null) {
-                        event.getMember().modifyNickname(event.getMember().getNickname() + " [AFK]").queue();
+                        event.getMember().modifyNickname("[AFK] " + event.getMember().getNickname()).queue();
                     }else {
-                        event.getMember().modifyNickname(event.getMember().getEffectiveName() + " [AFK]").queue();
+                        event.getMember().modifyNickname("[AFK] " + event.getMember().getEffectiveName()).queue();
                     }
                 }
 
             } else if (event.getNewOnlineStatus().name().equals("DO_NOT_DISTURB")) {
                 Infos.updateStatus(event.getUser().getId(), "BITTE NICHT STÖREN");
+
+                if(event.getMember().getVoiceState().inAudioChannel() && !event.getMember().isOwner()){
+
+                    if(event.getMember().getNickname() != null) {
+                        String username = event.getMember().getNickname();
+                        username = username.replace("[AFK]", "");
+                        event.getMember().modifyNickname(username).queue();
+                    }
+                }
             } else {
                 Infos.updateStatus(event.getUser().getId(), event.getNewOnlineStatus().name());
 
-                if(event.getMember().getVoiceState().inAudioChannel() && !event.getMember().hasPermission(Permission.ADMINISTRATOR)){
+                if(event.getMember().getVoiceState().inAudioChannel() && !event.getMember().isOwner()){
+
                     if(event.getMember().getNickname() != null) {
                         String username = event.getMember().getNickname();
-                        username.replace("[AFK]", "");
+                        username = username.replace("[AFK]", "");
                         event.getMember().modifyNickname(username).queue();
                     }
                 }

@@ -7,10 +7,7 @@ import listener.punktesystem.SprachchatConnect;
 import listener.punktesystem.SprachchatDisconnect;
 import listener.punktesystem.SprachchatMove;
 import listener.rollen.*;
-import listener.webpanel.AvatarUpdate;
-import listener.webpanel.NameUpdate;
-import listener.webpanel.PlayerLeave;
-import listener.webpanel.StatusUpdate;
+import listener.webpanel.*;
 import mitteilungen.Mitteilungen;
 import mysql.BotInfos;
 import mysql.Log;
@@ -38,7 +35,7 @@ public class Start {
     public static  Timer timer;
 
     private JDA api;
-    private String version = "1.3.3";
+    private String version = "1.3.4";
 
     private CommandManager cmdMan;
     private ReactionManager react;
@@ -137,6 +134,7 @@ public class Start {
         builder.addEventListener(new ReactionRemoveListener());
         builder.addEventListener(new MessageRemove());
         builder.addEventListener(new StatusUpdate());
+        builder.addEventListener(new NickNameUpdate());
     }
 
     public static void checkChannel(){
