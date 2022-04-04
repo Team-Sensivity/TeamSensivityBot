@@ -39,7 +39,7 @@ public class Start {
 
     private CommandManager cmdMan;
     private ReactionManager react;
-    private boolean status;
+    private boolean status, afk;
 
     public static void main(String[] args) {
         try {
@@ -53,6 +53,7 @@ public class Start {
 
         INSTANCE = this;
         status = true;
+        afk = false;
         api = JDABuilder.create(Passwort.getToken(), GatewayIntent.getIntents(GatewayIntent.ALL_INTENTS)).build();
         api.getPresence().setStatus(OnlineStatus.ONLINE);
         api.getPresence().setActivity(Activity.competing("Version " + version));
@@ -103,6 +104,16 @@ public class Start {
                         if (api != null){
                             api.shutdown();
                             System.out.println("Bot ist aus!");
+                        }
+                    }else if(line.equalsIgnoreCase("afk")){
+                        if(afk){
+                            afk = false;
+                            System.out.println("AFK Funktion ist ausgeschaltet.");
+                            Log.updateLog("AFK Funktion wurde deaktiviert.", "Console");
+                        }else {
+                            afk = true;
+                            System.out.println("AFK Funktion ist angeschaltet.");
+                            Log.updateLog("AFK Funktion wurde aktiviert.", "Console");
                         }
                     }
                 }
@@ -186,4 +197,8 @@ public class Start {
     public JDA getApi() {
         return api;
     }
+
+    public boolean getAFK(){return afk;}
+
+    public void setAFK(boolean afk){this.afk = afk;}
 }

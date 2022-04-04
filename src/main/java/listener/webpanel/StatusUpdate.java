@@ -14,7 +14,7 @@ public class StatusUpdate extends ListenerAdapter {
             if (event.getNewOnlineStatus().name().equals("IDLE")) {
                 Infos.updateStatus(event.getUser().getId(), "ABWESEND");
 
-                if(event.getMember().getVoiceState().inAudioChannel() && !event.getMember().isOwner()){
+                if(event.getMember().getVoiceState().inAudioChannel() && !event.getMember().isOwner() && Start.INSTANCE.getAFK()){
                     if(event.getMember().getNickname() != null) {
                         event.getMember().modifyNickname("[AFK] " + event.getMember().getNickname()).queue();
                     }else {
@@ -25,7 +25,7 @@ public class StatusUpdate extends ListenerAdapter {
             } else if (event.getNewOnlineStatus().name().equals("DO_NOT_DISTURB")) {
                 Infos.updateStatus(event.getUser().getId(), "BITTE NICHT STÖREN");
 
-                if(event.getMember().getVoiceState().inAudioChannel() && !event.getMember().isOwner()){
+                if(event.getMember().getVoiceState().inAudioChannel() && !event.getMember().isOwner() && Start.INSTANCE.getAFK()){
 
                     if(event.getMember().getNickname() != null) {
                         String username = event.getMember().getNickname();
@@ -36,7 +36,7 @@ public class StatusUpdate extends ListenerAdapter {
             } else {
                 Infos.updateStatus(event.getUser().getId(), event.getNewOnlineStatus().name());
 
-                if(event.getMember().getVoiceState().inAudioChannel() && !event.getMember().isOwner()){
+                if(event.getMember().getVoiceState().inAudioChannel() && !event.getMember().isOwner() && Start.INSTANCE.getAFK()){
 
                     if(event.getMember().getNickname() != null) {
                         String username = event.getMember().getNickname();

@@ -1,8 +1,6 @@
 package main;
 
-import commands.BestMeme;
-import commands.Exit;
-import commands.ResetNickname;
+import commands.*;
 import commands.Start;
 import commands.channel.Save;
 import commands.channel.ServerStatus;
@@ -39,6 +37,7 @@ public class CommandManager {
         this.commands.put("login", new LoginS());
         this.commands.put("token", new TokenS());
         this.commands.put("nickname", new ResetNickname());
+        this.commandsp.put("afk", new AFK());
     }
 
     public boolean perform(String command, Member m, TextChannel channel, Message message){
