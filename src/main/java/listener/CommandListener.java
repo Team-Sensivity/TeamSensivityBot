@@ -4,13 +4,12 @@ import main.Start;
 import mysql.Beleidigen;
 import mysql.BotInfos;
 import mysql.Memes;
+import mysql.TemporereChannel;
 import mysql.webpanel.PunkteSystem;
 import mysql.webpanel.TokenErstellen;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.ChannelType;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.PrivateChannel;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -85,6 +84,23 @@ public class CommandListener extends ListenerAdapter {
 
         if(Beleidigen.userExist(event.getAuthor().getId())){
             event.getChannel().sendMessage(Beleidigen.rage()).queue();
+        }
+
+        if(TemporereChannel.isExistCat(event.getTextChannel().getParentCategoryId())){
+            List<Member> m = event.getMessage().getMentionedMembers();
+            List<Role> r = event.getMessage().getMentionedRoles();
+
+            if(!m.isEmpty() || !r.isEmpty()) {
+                for (Member member : m) {
+                    event.getTextChannel().getParentCategory().createPermissionOverride(member).setAllow(Permission.VIEW_CHANNEL, Permission.VOICE_CONNECT).queue();
+                }
+
+                for (Role role : r) {
+                    event.getTextChannel().getParentCategory().createPermissionOverride(role).setAllow(Permission.VIEW_CHANNEL, Permission.VOICE_CONNECT).queue();
+                }
+
+                event.getTextChannel().sendMessage("Du hast die Permission erfolgreich geändert").queue();
+            }
         }
     }
 }

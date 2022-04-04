@@ -18,7 +18,6 @@ public class ResetNickname implements ServerCommand {
             for (Member member1: member) {
                 if(member1.getNickname() != null && !member1.isOwner()) {
                     member1.modifyNickname(member1.getUser().getName()).queue();
-                    System.out.println(member1.getUser().getName());
                 }
             }
 
