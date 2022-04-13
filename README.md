@@ -19,7 +19,7 @@
  - **&afk** Die AFK Funktion wird aktiviert bzw. deaktiviert
  - **&level <<g>level> <<g>xp>** Du erstellst ein neues Level
 
-## PluginSupport
+## PluginSupport (Kommt mit Update 2.0)
 ### Vorraussetztungen
  - Programmiersprache ist Java
  - Du hast einen GitAccount 
@@ -42,5 +42,6 @@
          }
        }
        ```
+      Statt ```new CommandListener()``` wählst du deinen Listener aus.
  6. 
    
