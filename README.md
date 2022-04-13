@@ -26,22 +26,4 @@
  - Das Plugin was du Programmierst beruht auf der [Discord JDA](https://github.com/DV8FromTheWorld/JDA)
 
 ### Wie funktionierts?
- 1. Du Programmierst einen eigenen Vollständigen JDA Discord Bot
- 2. Du erstellst eine GitRepo ([Hier Repo erstellen](https://github.com/orgs/Team-Sensivity/repositories))
- 3. Du erstellst eine .gitignore Datei und in diese packst du Folgende Datei Arten:
-    - MainFile
-
- 4. Statt deiner MainFile erstellst du eine create.java Datei
-    - In dieser Datei werden alle Listener Registriert
-    - Die Klasse sollte so aussehen:
-       ```
-       public class Create {
-         public void addListener(JDA builder){
-           Start.getApi().addEventListener(new CommandListener());
-           ...
-         }
-       }
-       ```
-      Statt ```new CommandListener()``` wählst du deinen Listener aus.
- 6. 
-   
+ 
