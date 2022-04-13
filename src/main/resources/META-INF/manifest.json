@@ -1,3 +1,14 @@
 {
-    "Version": "1.1.1",
+        "_version": "1.1.0",
+        "sap.app": {
+                "_version": "1.1.0",
+                "id": "<component ID>",
+                "type": "application",
+                "i18n": "resources/i18n/texts.properties",
+                "title": "{{<key in .properties file>}}",
+                "description": "{{<key in .properties file>}}",
+                "applicationVersion": {
+                        "version": "${project.version}"
+                }
+        }
 }
