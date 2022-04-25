@@ -23,11 +23,16 @@ public class SprachchatDisconnect extends ListenerAdapter {
 
         if(TemporereChannel.isExist(event.getChannelLeft().getId())){
             if(event.getChannelLeft().getMembers().size() == 0){
-                Start.INSTANCE.getApi().getGuildById("773995277840941067").getCategoryById(TemporereChannel.getCat(event.getChannelLeft().getId())).delete().queue();
-                Start.INSTANCE.getApi().getGuildById("773995277840941067").getVoiceChannelById(event.getChannelLeft().getId()).delete().queue();
-                Start.INSTANCE.getApi().getGuildById("773995277840941067").getTextChannelById(TemporereChannel.getTextChannel(event.getChannelLeft().getId())).delete().queue();
+
+                event.getGuild().getVoiceChannelById(event.getChannelLeft().getId()).delete().queue();
+                event.getGuild().getTextChannelById(TemporereChannel.getTextChannel(event.getChannelLeft().getId())).delete().queue();
+                event.getGuild().getCategoryById(TemporereChannel.getCat(event.getChannelLeft().getId())).delete().queue();
                 TemporereChannel.removeChannel(event.getChannelLeft().getId());
 
+            }else {
+                //if (event.getMember().getId().equals(TemporereChannel.getAdmin(event.getChannelLeft().getId()))) {
+                //    event.getChannelLeft().getMembers().get(0).
+               // }
             }
         }
     }

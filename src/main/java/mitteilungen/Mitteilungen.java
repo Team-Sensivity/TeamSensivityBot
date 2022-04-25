@@ -8,8 +8,8 @@ import net.dv8tion.jda.api.entities.PrivateChannel;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 
 import java.awt.*;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+import java.io.IOException;
+import java.net.*;
 import java.sql.*;
 import java.util.TimerTask;
 
@@ -57,8 +57,9 @@ public class Mitteilungen extends TimerTask {
             builder.addField("**MinecraftServer**", "Status: " + BotInfos.getMinecraft(), false);
             builder.addField("**SpaceEngineersServer**", "Status: " + BotInfos.getSpace(), false);
             builder.addField("**Dashboard**", "Status: " + BotInfos.getDash(), false);
+            builder.addField("**Satisfactory**", "Status: " + BotInfos.getSpace(), false);
             builder.addBlankField(false);
-            builder.addField("**Genauere Infos findest du unter:**", ">> https://monitor.michel929.de/status", false);
+            builder.addField("**Genauere Infos findest du unter:**", ">> https://monitor.michel929.de/status/default", false);
 
             Start.INSTANCE.getApi().getGuildById("773995277840941067").getTextChannelById(BotInfos.getStatusChannel()).editMessageEmbedsById(BotInfos.getStatusMessage(), builder.build()).queue();
         }

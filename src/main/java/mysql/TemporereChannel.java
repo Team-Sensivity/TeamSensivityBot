@@ -40,6 +40,29 @@ public class TemporereChannel {
         return exist;
     }
 
+    public static String getAdmin(String voice){
+        String exist = "";
+
+        try {
+            Connection con = Connect.getConnection();
+            String sql = "SELECT * FROM maxIdee";
+            Statement stmt  = con.createStatement();
+            ResultSet rs    = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                if(voice.equals(rs.getString("voiceChannel"))){
+                    exist = rs.getString("admin");
+                }
+            }
+
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return exist;
+    }
+
     public static String getVoiceChannel(String cat){
         String exist = "";
 
