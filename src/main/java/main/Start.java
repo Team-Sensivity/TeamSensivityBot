@@ -2,7 +2,6 @@ package main;
 
 import geheim.BotToken;
 import listeners.SlashCommand;
-import mail.SendMail;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -65,11 +64,9 @@ public class Start {
                             api.shutdown();
                             System.out.println("Bot ist aus!");
                         }
-                    }else if(line.equalsIgnoreCase("test")){
-                        SendMail.verifyEmail("michel.gruenig@gmail.com");
                     }
                 }
-            }catch (IOException | EmailException e){
+            }catch (IOException e){
                 e.printStackTrace();
             }
         }).start();
@@ -80,8 +77,8 @@ public class Start {
     }
 
     private void commands(){
-        api.upsertCommand("connect", "Hiermit verbindest du deinen DiscordAccount mit dem TurnierAccout. (DM)").queue();
-        api.upsertCommand("login", "Hiermit kannst du dich im TurnierSystem anmelden. (DM)").queue();
+        api.upsertCommand("connect", "Hiermit verbindest du deinen DiscordAccount mit dem Dashboard.").queue();
+        api.upsertCommand("login", "Hiermit kannst du dich im Dashboard anmelden.").queue();
     }
 
     public JDA getApi() {
