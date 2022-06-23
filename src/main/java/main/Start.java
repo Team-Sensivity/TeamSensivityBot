@@ -1,6 +1,7 @@
 package main;
 
 import geheim.BotToken;
+import listeners.PlayerJoin;
 import listeners.SlashCommand;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -16,6 +17,7 @@ import java.io.InputStreamReader;
 public class Start {
 
     public static Start INSTANCE;
+    public static String GUILD_ID = "773995277840941067", STANDART_ROLE = "774003817347940373";
 
     private JDA api;
 
@@ -74,6 +76,7 @@ public class Start {
 
     private void listeners(){
         api.addEventListener(new SlashCommand());
+        api.addEventListener(new PlayerJoin());
     }
 
     private void commands(){
