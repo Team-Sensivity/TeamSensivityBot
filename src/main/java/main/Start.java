@@ -3,6 +3,9 @@ package main;
 import geheim.BotToken;
 import listeners.PlayerJoin;
 import listeners.SlashCommand;
+import listeners.dashboard.AvatarChange;
+import listeners.dashboard.NameChange;
+import listeners.dashboard.StatusChange;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -77,6 +80,11 @@ public class Start {
     private void listeners(){
         api.addEventListener(new SlashCommand());
         api.addEventListener(new PlayerJoin());
+
+        api.addEventListener(new NameChange());
+        api.addEventListener(new AvatarChange());
+        api.addEventListener(new StatusChange());
+
     }
 
     private void commands(){

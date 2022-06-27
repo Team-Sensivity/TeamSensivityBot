@@ -9,7 +9,7 @@ public class PlayerInfos {
         try {
             Connection con = Connect.getConnection();
 
-            PreparedStatement posted = con.prepareStatement("INSERT INTO users (discord_id, discord_username, discord_bild, discord_banner) VALUES ('"+ id + "', '"+ username +"' , '"+ pb +"', '"+ banner +"')");
+            PreparedStatement posted = con.prepareStatement("INSERT INTO users (discord_id, discord_username, discord_bild, discord_banner, website_url) VALUES ('"+ id + "', '"+ username +"' , '"+ pb +"', '"+ banner +"', '" + id + "')");
 
             posted.executeUpdate();
             con.close();
@@ -41,5 +41,20 @@ public class PlayerInfos {
         }
 
         return exist;
+    }
+
+    public static void updatePlayerInfos(String discord_id, String row, String newInfos){
+        try {
+            Connection con = Connect.getConnection();
+
+            PreparedStatement posted = con.prepareStatement("UPDATE users SET " + row + " = '" + newInfos + "' WHERE discord_id = '" + discord_id + "'");
+
+            posted.executeUpdate();
+            con.close();
+
+        } catch (
+                SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
