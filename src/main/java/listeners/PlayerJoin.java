@@ -24,8 +24,14 @@ public class PlayerJoin extends ListenerAdapter {
             banner = p.getAccentColor().toString();
         }
 
-        if(!PlayerInfos.accountExist(m.getId())) {
+        if(!PlayerInfos.isExist(m.getId(), "discord_id", "users")) {
             PlayerInfos.createAccount(m.getId(), m.getEffectiveName(), m.getAvatarUrl(), banner);
+
+            for (Role role: m.getRoles()) {
+                if(!PlayerInfos.isExist(role.getId(), "discord_role", "user_role")) {
+                    PlayerInfos.insertRole(m.getId(), role.getId());
+                }
+            }
         }
     }
 }

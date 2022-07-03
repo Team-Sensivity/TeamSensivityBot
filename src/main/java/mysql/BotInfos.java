@@ -1,12 +1,9 @@
 package mysql;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class BotInfos {
-    public static String getLogo(){
+    public static String getBotInfos(String row){
         String url = "";
 
         try {
@@ -16,7 +13,7 @@ public class BotInfos {
             ResultSet rs    = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                url = rs.getString("logo_url");
+                url = rs.getString(row);
             }
             con.close();
         } catch (SQLException e) {
@@ -24,5 +21,19 @@ public class BotInfos {
         }
 
         return url;
+    }
+
+    public static void createRole(String id, String color, String name, int position){
+        try {
+            Connection con = Connect.getConnection();
+
+            PreparedStatement posted = con.prepareStatement("INSERT INTO rollen (role_id, color, role_name, role_position) VALUES ('"+ id + "', '"+ color +"', + '" + name + "', '" + position + "')");
+
+            posted.executeUpdate();
+            con.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

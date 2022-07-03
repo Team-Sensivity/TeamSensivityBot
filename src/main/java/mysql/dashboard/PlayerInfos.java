@@ -19,17 +19,17 @@ public class PlayerInfos {
         }
     }
 
-    public static boolean accountExist(String id){
+    public static boolean isExist(String id, String row, String table){
         boolean exist = false;
 
         try {
             Connection con = Connect.getConnection();
-            String sql = "SELECT * FROM users";
+            String sql = "SELECT * FROM " + table;
             Statement stmt  = con.createStatement();
             ResultSet rs    = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                if(id.equals(rs.getString("discord_id"))){
+                if(id.equals(rs.getString(row))){
                     exist = true;
                 }
 
@@ -54,6 +54,20 @@ public class PlayerInfos {
 
         } catch (
                 SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void insertRole(String id, String role){
+        try {
+            Connection con = Connect.getConnection();
+
+            PreparedStatement posted = con.prepareStatement("INSERT INTO rollen (discord_id, discorde_role) VALUES ('"+ id + "', '"+ role +"')");
+
+            posted.executeUpdate();
+            con.close();
+
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

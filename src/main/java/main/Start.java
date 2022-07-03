@@ -5,7 +5,9 @@ import listeners.PlayerJoin;
 import listeners.SlashCommand;
 import listeners.dashboard.AvatarChange;
 import listeners.dashboard.NameChange;
+import listeners.dashboard.RoleCreate;
 import listeners.dashboard.StatusChange;
+import mysql.BotInfos;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -20,7 +22,7 @@ import java.io.InputStreamReader;
 public class Start {
 
     public static Start INSTANCE;
-    public static String GUILD_ID = "773995277840941067", STANDART_ROLE = "774003817347940373";
+    public static String GUILD_ID = BotInfos.getBotInfos("guild_id"), STANDART_ROLE = BotInfos.getBotInfos("discord_role");
 
     private JDA api;
 
@@ -84,6 +86,7 @@ public class Start {
         api.addEventListener(new NameChange());
         api.addEventListener(new AvatarChange());
         api.addEventListener(new StatusChange());
+        api.addEventListener(new RoleCreate());
 
     }
 

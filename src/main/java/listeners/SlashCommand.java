@@ -5,6 +5,7 @@ import mysql.Token;
 import mysql.dashboard.PlayerInfos;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.ChannelType;
+import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -22,7 +23,7 @@ public class SlashCommand extends ListenerAdapter {
                 EmbedBuilder builder = new EmbedBuilder();
                 builder.setAuthor("Team Sensivity");
                 builder.setFooter("https://team-sensivity.de");
-                //builder.setImage(BotInfos.getLogo());
+                builder.setImage(BotInfos.getBotInfos("logo_url"));
                 builder.setColor(Color.BLACK);
                 builder.setTitle("Login Link");
                 builder.setDescription("");
@@ -40,8 +41,14 @@ public class SlashCommand extends ListenerAdapter {
                     banner = p.getAccentColor().toString();
                 }
 
-                if(!PlayerInfos.accountExist(event.getMember().getId())) {
+                if(!PlayerInfos.isExist(event.getMember().getId(), "discord_id", "users")) {
                     PlayerInfos.createAccount(event.getMember().getId(), event.getMember().getEffectiveName(), event.getMember().getAvatarUrl(), banner);
+
+                    for (Role role: event.getMember().getRoles()) {
+                        if(!PlayerInfos.isExist(role.getId(), "discord_role", "user_role")) {
+                            PlayerInfos.insertRole(event.getMember().getId(), role.getId());
+                        }
+                    }
                 }
             }
         }
